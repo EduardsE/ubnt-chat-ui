@@ -1,0 +1,11 @@
+.container {
+  height: 100%;
+  position: absolute;
+
+  .middle {
+    background: #efeef5;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+  }
+}

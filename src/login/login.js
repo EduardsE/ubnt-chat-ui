@@ -28,13 +28,13 @@ class Form extends Component {
 
   async handleClick() {
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/login`, {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
         username: this.state.username
       });
 
       this.props.history.push('/chat')
-    } catch (httpErrpr) {
-      console.log(httpErrpr);
+    } catch (httpError) {
+      console.log(httpError);
     }
   }
 

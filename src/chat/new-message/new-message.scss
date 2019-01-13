@@ -1,0 +1,14 @@
+.send-button {
+  min-width: 95px !important;
+  position: initial;
+}
+
+.new-message-container {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+
+  .new-message {
+    margin-left: 0px;
+  }
+}

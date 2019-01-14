@@ -45,32 +45,41 @@ class NewMessage extends React.Component {
   };
 
 
+  handleSubmit(event) {
+    event.preventDefault();
+    this.sendMessage();
+  }
+
+
   render() {
     return (
-      <div className="new-message-container">
-        <TextField
-          id="standard-full-width"
-          value={this.state.message}
-          placeholder="Type your message here"
-          fullWidth
-          margin="none"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          className="new-message"
-          onChange={this.handleInputChange('message')}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          className="send-button"
-          onClick={() => this.sendMessage()}
-          size="small"
-        >
-          Send
-          <Icon className={this.classes.rightIcon}>send</Icon>
-        </Button>
-      </div>
+      <form onSubmit={this.handleSubmit.bind(this)}>
+        <div className="new-message-container">
+          <TextField
+            id="standard-full-width"
+            value={this.state.message}
+            placeholder="Type your message here"
+            fullWidth
+            margin="none"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            className="new-message"
+            onChange={this.handleInputChange('message')}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            className="send-button"
+            onClick={() => this.sendMessage()}
+            size="small"
+            // type="submit"
+          >
+            Send
+            <Icon className={this.classes.rightIcon}>send</Icon>
+          </Button>
+        </div>
+      </form>
     );
   }
 }

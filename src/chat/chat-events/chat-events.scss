@@ -1,24 +1,33 @@
 $gray: #87868f;
+$blue: #2196f3;
 
 .chat-events {
   flex: 1;
-  padding: 12px 0px;
   overflow: auto;
+  padding: 1rem;
+
+  background: $blue;
+}
+
+.empty-messages {
+  color: white;
+  text-align: center;
+  font-size: 14px;
 }
 
 
 .message-container {
   display: flex;
   align-items: center;
-  margin: 1rem 0rem;
+  margin-bottom: 1rem;
   align-items: flex-start;
 
   &.my-message {
     flex-direction: row-reverse;
 
     .message {
-      background: #414dbc;
       color: white;
+      background: #00487C;
     }
 
     .circle {
@@ -43,6 +52,7 @@ $gray: #87868f;
     top: -5px;
     margin: 0;
     width: max-content;
+    color: #efeef8;
   }
 
   .circle {
@@ -77,6 +87,7 @@ $gray: #87868f;
     display: inline-block;
     border-radius: 20px;
     line-height: 1.3;
+    font-size: 14px;
   }
 
   .event {
@@ -84,5 +95,6 @@ $gray: #87868f;
     color: $gray;
     font-size: 12px;
     margin: 15px 0px 25px;
+    color: white;
   }
 }

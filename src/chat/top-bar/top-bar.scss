@@ -1,0 +1,12 @@
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  align-items: center;
+  background: #2d2d2d;
+  color: white;
+
+  p {
+    margin: 0;
+  }
+}

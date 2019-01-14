@@ -1,7 +1,5 @@
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
 import Moment from 'react-moment';
 import React from 'react';
 
@@ -50,18 +48,6 @@ class ChatEvents extends React.Component {
       default:
         return;
     }
-  }
-
-
-  async disconnect() {
-    try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/auth/logout`);
-    } catch (httpError) {
-      console.log(httpError);
-    }
-
-    Socket.close();
-    this.props.history.push('/')
   }
 
 
@@ -114,15 +100,6 @@ class ChatEvents extends React.Component {
   render() {
     return (
       <div className="chat-events">
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => this.disconnect()}
-          size="small"
-        >
-          Disconnect
-          <Icon className={this.classes.rightIcon}>send</Icon>
-        </Button>
         <div>
           <Messages
             messages={this.state.messages}
@@ -145,6 +122,10 @@ class Messages extends React.Component {
 
   render() {
     const user = this.props.user;
+
+    if (this.props.messages.length === 0) {
+      return <p className="empty-messages">Messages will appear here</p>
+    }
 
     return (
       this.props.messages.map((data, index) => {

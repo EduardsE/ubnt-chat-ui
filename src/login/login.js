@@ -1,15 +1,12 @@
-import axios from 'axios';
-import React, { Component } from "react";
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import React from "react";
 
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import CloseIcon from '@material-ui/icons/Close';
 import Grid from '@material-ui/core/Grid';
-import Icon from '@material-ui/core/Icon';
-import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
+import Snackbar from '@material-ui/core/Snackbar';
 
+import Form from './form/form.js';
 import './login.scss'
 
 const styles = theme => ({
@@ -17,58 +14,6 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
   },
 });
-
-class Form extends Component {
-  constructor(props) {
-    super(props);
-
-    this.classes = props.classes;
-    this.state = {
-      username: ''
-    }
-  }
-
-  async handleClick() {
-    try {
-      axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
-        username: this.state.username
-      }).then(data => {
-        this.props.history.push('/chat')
-      });
-    } catch (httpError) {
-      console.log(httpError);
-    }
-  }
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    });
-  };
-
-  render() {
-    return (
-      <form noValidate autoComplete="off">
-        <TextField
-          id="username"
-          label="Username"
-          margin="normal"
-          variant="outlined"
-          value={this.state.username}
-          onChange={this.handleChange('username')}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={this.handleClick.bind(this)}
-        >
-          Connect
-          <Icon className={this.classes.rightIcon}>send</Icon>
-        </Button>
-      </form>
-    );
-  }
-}
 
 class Login extends React.Component {
   constructor(props) {
@@ -78,8 +23,8 @@ class Login extends React.Component {
       open: false
     }
     this.classes = props.classes;
-
   }
+
 
   componentDidMount = () => {
     try {
@@ -97,14 +42,15 @@ class Login extends React.Component {
     this.setState({ open: false });
   }
 
+
   render() {
     return (
       <Grid container spacing={24}>
-        <Grid item xs={3}></Grid>
-        <Grid item xs={6}>
+        <Grid item xs={1} sm={2} md={3} lg={4}></Grid>
+        <Grid item xs={10} sm={8} md={6} lg={4}>
           <Form classes={this.props.classes} history={this.props.history}/>
           <Snackbar
-            anchorOrigin={{vertical: 'bottom', horizontal: 'left', }}
+            anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
             open={this.state.open}
             message={<span id="message-id">Disconnected due to inactivity</span>}
             action={[
@@ -120,7 +66,7 @@ class Login extends React.Component {
             ]}
           />
         </Grid>
-        <Grid item xs={3}></Grid>
+        <Grid item xs={1} sm={2} md={3} lg={4}></Grid>
       </Grid>
     );
   }

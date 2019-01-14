@@ -1,15 +1,17 @@
-.send-button {
-  min-width: 95px !important;
-  position: initial;
-  margin-left: 10px !important;
-}
-
 .new-message-container {
-  width: 100%;
   display: flex;
   align-items: flex-end;
+  padding: 1rem;
+  background: #2d2d2d;
+  color: white;
 
   .new-message {
     margin-left: 0px;
+  }
+
+  .send-button {
+    min-width: 95px !important;
+    position: relative;
+    margin-left: 10px !important;
   }
 }

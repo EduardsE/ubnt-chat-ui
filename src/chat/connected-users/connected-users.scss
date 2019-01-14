@@ -1,3 +1,36 @@
+.connected-users {
+  display: flex;
+  padding: 0rem 0rem 0rem;
+  background: #2d2d2d;
+  color: white;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  overflow: auto;
+
+  .user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 65px;
+    padding: 0px 5px;
+    min-width: 65px;
+
+    &:first-of-type {
+      padding-left: 0px;
+    }
+
+    .username {
+      margin-top: 5px;
+      font-size: 12px;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+
 .circle {
   width: 40px;
   height: 40px;
@@ -14,29 +47,5 @@
   span {
     position: relative;
     top: -1px;
-  }
-}
-
-.connected-users {
-  display: flex;
-  padding: 10px 10px;
-  box-shadow: 0px 12px 27px -17px black;
-  margin: 0px -12px;
-
-  .user {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 65px;
-    padding: 0px 5px;
-
-    .username {
-      margin-top: 5px;
-      font-size: 12px;
-      max-width: 100%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
   }
 }

@@ -1,14 +1,17 @@
-import React from "react";
 import axios from 'axios';
+import React from "react";
 
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import NewMessage from './new-message/new-message.js'
+import Icon from '@material-ui/core/Icon';
+
+import * as Socket from '../helpers/socket.helper.js';
 import ChatEvents from './chat-events/chat-events.js'
 import ConnectedUsers from './connected-users/connected-users.js'
+import NewMessage from './new-message/new-message.js'
+import TopBar from './top-bar/top-bar.js'
 
-import './chat.scss'
-import * as Socket from '../helpers/socket.helper.js';
-
+import './chat.scss';
 
 class Chat extends React.Component {
   _isMounted = false;
@@ -42,8 +45,13 @@ class Chat extends React.Component {
   }
 
 
+  componentWillMount() {
+    document.body.style.backgroundColor = "white";
+  }
+
   componentWillUnmount() {
     this._isMounted = false;
+    document.body.style.backgroundColor = null;
   }
 
 
@@ -66,12 +74,24 @@ class Chat extends React.Component {
     }
   }
 
+  async disconnect() {
+    try {
+      await axios.post(`${process.env.REACT_APP_API_URL}/auth/logout`);
+    } catch (httpError) {
+      console.log(httpError);
+    }
+
+    Socket.close();
+    this.props.history.push('/')
+  }
+
 
   render() {
     return (
-      <Grid container className="container" spacing={24}>
-        <Grid item xs={1} sm={2} md={3} lg={4}></Grid>
-        <Grid className="middle" item xs={10} sm={8} md={6} lg={4}>
+      <Grid container className="container">
+        <Grid item xs={false} sm={2} md={3} lg={4}></Grid>
+        <Grid className="middle" item xs={12} sm={8} md={6} lg={4}>
+          <TopBar history={this.props.history}></TopBar>
           <ConnectedUsers
             users={this.state.users}
           ></ConnectedUsers>
@@ -82,7 +102,7 @@ class Chat extends React.Component {
           ></ChatEvents>
           <NewMessage></NewMessage>
         </Grid>
-        <Grid item xs={1} sm={2} md={3} lg={4}></Grid>
+        <Grid item xs={false} sm={2} md={3} lg={4}></Grid>
       </Grid>
     );
   }

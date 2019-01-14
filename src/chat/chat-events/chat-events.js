@@ -55,7 +55,7 @@ class ChatEvents extends React.Component {
 
   async disconnect() {
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/logout`);
+      await axios.post(`${process.env.REACT_APP_API_URL}/auth/logout`);
     } catch (httpError) {
       console.log(httpError);
     }
@@ -92,7 +92,6 @@ class ChatEvents extends React.Component {
 
 
   processUserDisconnected(data) {
-    const user = data.user;
     const messages = this.state.messages.slice();
 
     // Check if message has not already been received
@@ -139,7 +138,7 @@ class ChatEvents extends React.Component {
 class Messages extends React.Component {
 
   getFormattedTime(time) {
-    return <Moment format="dddd HH:MM">
+    return <Moment format="HH:MM">
       {time}
     </Moment>
   }
@@ -169,16 +168,16 @@ class Messages extends React.Component {
         } else if (data.isEvent) {
           let eventMessage;
           if (data.event === 'user-connected') {
-            eventMessage = <div className="event">{data.username} joined at &nbsp;
+            eventMessage = <div className="event">{data.username} joined at&nbsp;
               {this.getFormattedTime(data.connectedAt)}
             </div>
           } else if (data.event === 'user-disconnected') {
-            let messageContext = 'disconnected';
+            let message = `${data.username} left the chat, connection lost`
             if (data.dueToInactivity) {
-              messageContext = 'disconnected due to inactivity';
+              message = `${data.username} was disconnected due to inactivity`;
             }
 
-            eventMessage = <div className="event">{data.username} {messageContext} at &nbsp;
+            eventMessage = <div className="event">{message} at &nbsp;
               {this.getFormattedTime(data.connectedAt)}
             </div>
           } else {
@@ -191,6 +190,8 @@ class Messages extends React.Component {
             </div>
           );
         }
+
+        return '';
       })
     )
   }

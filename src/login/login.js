@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { Component } from "react";
-import { withRouter } from 'react-router-dom'
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -31,11 +30,11 @@ class Form extends Component {
 
   async handleClick() {
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
+      axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
         username: this.state.username
+      }).then(data => {
+        this.props.history.push('/chat')
       });
-
-      this.props.history.push('/chat')
     } catch (httpError) {
       console.log(httpError);
     }

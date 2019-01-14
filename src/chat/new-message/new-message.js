@@ -27,7 +27,7 @@ class NewMessage extends React.Component {
 
   async sendMessage() {
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/chat/message`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/chat/message`, {
         message: this.state.message
       });
 

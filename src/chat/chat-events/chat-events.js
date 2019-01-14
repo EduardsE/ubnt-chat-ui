@@ -61,6 +61,9 @@ class ChatEvents extends React.Component {
 
     messages.push({ ...data, isMessage: true });
     this.setState({ messages });
+
+    // Scroll chat to bottom
+    this.chatEventsScrollerRef.scrollIntoView({ block: "end" });
   }
 
 
@@ -100,12 +103,12 @@ class ChatEvents extends React.Component {
   render() {
     return (
       <div className="chat-events">
-        <div>
-          <Messages
-            messages={this.state.messages}
-            user={this.props.user}
-          ></Messages>
-        </div>
+        <Messages
+          messages={this.state.messages}
+          user={this.props.user}
+        ></Messages>
+        <div style={{ float:"left", clear: "both" }}
+             ref={(el) => { this.chatEventsScrollerRef = el; }}></div>
       </div>
     );
   }

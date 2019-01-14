@@ -125,7 +125,10 @@ class ChatEvents extends React.Component {
           <Icon className={this.classes.rightIcon}>send</Icon>
         </Button>
         <div>
-          <Messages messages={this.state.messages}></Messages>
+          <Messages
+            messages={this.state.messages}
+            user={this.props.user}
+          ></Messages>
         </div>
       </div>
     );
@@ -142,11 +145,16 @@ class Messages extends React.Component {
   }
 
   render() {
+    const user = this.props.user;
+
     return (
       this.props.messages.map((data, index) => {
         if (data.isMessage) {
           return (
-            <div className="message-container" key={data.id}>
+            <div
+              className={'message-container ' + (user.username === data.username ? 'my-message' : '')}
+              key={data.id}
+            >
               <div className="circle" style={{ background: data.color}}>
                 <span>
                   {data.username[0]}

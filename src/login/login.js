@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { Component } from "react";
 import { withRouter } from 'react-router-dom'
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -69,12 +72,54 @@ class Form extends Component {
 }
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      open: false
+    }
+    this.classes = props.classes;
+
+  }
+
+  componentDidMount = () => {
+    try {
+      if (this.props.history.location.state.disconnectionDueTo === 'inactivity') {
+        this.setState({ open: true });
+        const state = { ...this.props.history.location.state };
+        delete state.disconnectionDueTo;
+        this.props.history.replace({ ...this.props.history.location, state });
+      }
+    } catch (error) {}
+  }
+
+
+  handleSnackbarClose = (event, reason) => {
+    this.setState({ open: false });
+  }
+
   render() {
     return (
       <Grid container spacing={24}>
         <Grid item xs={3}></Grid>
         <Grid item xs={6}>
           <Form classes={this.props.classes} history={this.props.history}/>
+          <Snackbar
+            anchorOrigin={{vertical: 'bottom', horizontal: 'left', }}
+            open={this.state.open}
+            message={<span id="message-id">Disconnected due to inactivity</span>}
+            action={[
+              <IconButton
+                key="close"
+                aria-label="Close"
+                color="inherit"
+                className={this.classes.close}
+                onClick={this.handleSnackbarClose}
+              >
+              <CloseIcon />
+              </IconButton>
+            ]}
+          />
         </Grid>
         <Grid item xs={3}></Grid>
       </Grid>

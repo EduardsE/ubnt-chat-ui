@@ -18,6 +18,7 @@ class Chat extends React.Component {
 
   async componentDidMount() {
     const status = await axios.get(`${process.env.REACT_APP_API_URL}/chat/status`);
+    // TODO, get active users;
   }
 
   render() {

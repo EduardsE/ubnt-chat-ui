@@ -7,7 +7,6 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 
 import './new-message.scss'
-import { emitMessage } from './../../helpers/socket.helper.js';
 
 const styles = theme => ({
   rightIcon: {

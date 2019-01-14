@@ -118,7 +118,6 @@ class ChatEvents extends React.Component {
         <Button
           variant="contained"
           color="primary"
-          className="send-button"
           onClick={() => this.disconnect()}
           size="small"
         >

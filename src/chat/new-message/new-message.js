@@ -31,7 +31,7 @@ class NewMessage extends React.Component {
         message: this.state.message
       });
 
-      await this.setState({ message: '' });
+      this.setState({ message: '' });
     } catch (httpError) {
       console.log(httpError);
     }

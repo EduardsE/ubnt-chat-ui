@@ -1,9 +1,7 @@
 import axios from 'axios';
 import React from "react";
 
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Icon from '@material-ui/core/Icon';
 
 import * as Socket from '../helpers/socket.helper.js';
 import ChatEvents from './chat-events/chat-events.js'
@@ -76,13 +74,12 @@ class Chat extends React.Component {
 
   async disconnect() {
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/auth/logout`);
+      axios.post(`${process.env.REACT_APP_API_URL}/auth/logout`).then(() => {
+        this.props.history.push('/', { disconnectionDueTo: 'loggedOut' })
+      });
     } catch (httpError) {
       console.log(httpError);
     }
-
-    Socket.close();
-    this.props.history.push('/')
   }
 
 

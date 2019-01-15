@@ -42,8 +42,11 @@ class ChatEvents extends React.Component {
       case 'user-disconnected':
         this.processUserDisconnected(data);
         break;
-      case 'this-user-disconnected':
-        this.processThisUserDisconnected(data);
+      case 'disconnect-due-to-inactivity':
+        this.processThisUserDisconnected('inactivity');
+        break;
+      case 'accessing-without-auth':
+        this.processThisUserDisconnected('no-auth');
         break;
       default:
         return;
@@ -93,9 +96,9 @@ class ChatEvents extends React.Component {
   }
 
 
-  processThisUserDisconnected() {
+  processThisUserDisconnected(reason) {
     this.props.history.push('/', {
-      disconnectionDueTo: 'inactivity'
+      disconnectionDueTo: reason
     });
   }
 

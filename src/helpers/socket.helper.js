@@ -5,12 +5,6 @@ let socket;
 function connect(cb) {
   socket = openSocket(process.env.REACT_APP_SOCKET_URL);
 
-  socket.on('disconnect', () => {
-    cb({
-      event: 'this-user-disconnected',
-    });
-  });
-
   socket.on('new-message', (message) => {
     cb({
       ...message,
@@ -27,6 +21,17 @@ function connect(cb) {
     cb({
       ...data,
       event: 'user-disconnected',
+    });
+  })
+  socket.on('disconnect-due-to-inactivity', (data) => {
+    cb({
+      ...data,
+      event: 'disconnect-due-to-inactivity',
+    });
+  })
+  socket.on('accessing-without-auth', (data) => {
+    cb({
+      event: 'accessing-without-auth',
     });
   })
 }

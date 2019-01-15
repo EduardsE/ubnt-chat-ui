@@ -15,12 +15,16 @@ const styles = theme => ({
   },
 });
 
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      open: false
+      snackbar: {
+        open: false,
+        message: ''
+      }
     }
     this.classes = props.classes;
   }
@@ -28,8 +32,14 @@ class Login extends React.Component {
 
   componentDidMount = () => {
     try {
-      if (this.props.history.location.state.disconnectionDueTo === 'inactivity') {
-        this.setState({ open: true });
+      if (this.props.history.location.state.disconnectionDueTo) {
+        let message = 'Disconnected due to inactivity';
+        if (this.props.history.location.state.disconnectionDueTo === 'no-auth') {
+          message = 'Accessing without authentication is not allowed';
+        }
+
+        this.setState({ snackbar: { open: true, message } });
+        // Resetting history location state
         const state = { ...this.props.history.location.state };
         delete state.disconnectionDueTo;
         this.props.history.replace({ ...this.props.history.location, state });
@@ -39,7 +49,12 @@ class Login extends React.Component {
 
 
   handleSnackbarClose = (event, reason) => {
-    this.setState({ open: false });
+    this.setState({
+      snackbar: {
+        open: false,
+        message: ''
+      }
+    });
   }
 
 
@@ -49,24 +64,24 @@ class Login extends React.Component {
         <Grid item xs={1} sm={2} md={3} lg={4}></Grid>
         <Grid item xs={10} sm={8} md={6} lg={4}>
           <Form classes={this.props.classes} history={this.props.history}/>
-          <Snackbar
-            anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-            open={this.state.open}
-            message={<span id="message-id">Disconnected due to inactivity</span>}
-            action={[
-              <IconButton
-                key="close"
-                aria-label="Close"
-                color="inherit"
-                className={this.classes.close}
-                onClick={this.handleSnackbarClose}
-              >
-              <CloseIcon />
-              </IconButton>
-            ]}
-          />
         </Grid>
         <Grid item xs={1} sm={2} md={3} lg={4}></Grid>
+        <Snackbar
+          anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+          open={this.state.snackbar.open}
+          message={<span id="message-id">{this.state.snackbar.message}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={this.classes.close}
+              onClick={this.handleSnackbarClose}
+            >
+            <CloseIcon />
+            </IconButton>
+          ]}
+        />
       </Grid>
     );
   }

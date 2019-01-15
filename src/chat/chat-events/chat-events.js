@@ -27,6 +27,11 @@ class ChatEvents extends React.Component {
   }
 
 
+  componentWillUnmount() {
+    Socket.close();
+  }
+
+
   /*
   * Processes incoming socket data
   * @param {data} message or connection change event data

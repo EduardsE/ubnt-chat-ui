@@ -7,21 +7,23 @@ class Message extends React.Component {
     const message = this.props.message;
     const user = this.props.user;
 
+    console.log(user);
+    console.log(message);
+
     return (
       <div
         className={
           'message-container ' +
           (user.username === message.username ? 'my-message' : '')
         }
-        key={message.eventId}
       >
         <div className="circle" style={{ background: user.color}}>
           <span>
-            {user.username[0]}
+            {message.username[0]}
           </span>
         </div>
         <div className="bubble">
-          <p className="username">{user.username}</p>
+          <p className="username">{message.username}</p>
           <div className="message"> {message.message}</div>
         </div>
       </div>

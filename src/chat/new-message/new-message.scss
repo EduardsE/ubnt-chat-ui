@@ -1,8 +1,10 @@
+@import './../../common';
+
 .new-message-container {
   display: flex;
   align-items: flex-end;
   padding: 1rem;
-  background: #2d2d2d;
+  background: $dark-grey;
   color: white;
 
   .new-message {

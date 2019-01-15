@@ -5,10 +5,10 @@ import React, { Component, Fragment } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 
-import './App.css';
 import Chat from './chat/chat';
 import Login from './login/login';
 
+// For material ui theme customization.
 const theme = createMuiTheme({
   palette: {
     type: 'dark',

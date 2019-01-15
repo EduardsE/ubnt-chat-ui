@@ -1,13 +1,13 @@
-import React from "react";
 import { compose } from 'recompose'
 import { withSnackbar } from 'notistack';
-import Button from '@material-ui/core/Button';
+import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
-import Form from './form/form.js';
 import './login.scss'
+import Form from './form/form.js';
 
 
 class Login extends React.Component {
@@ -22,7 +22,9 @@ class Login extends React.Component {
     this.showSnackbarOnDisconnect();
   }
 
-
+  /*
+  * Checks for location state change and outputs reason of disconnection
+  */
   showSnackbarOnDisconnect() {
     try {
       if (this.props.history.location.state.disconnectionDueTo) {
@@ -34,7 +36,7 @@ class Login extends React.Component {
         this.props.enqueueSnackbar(message, {
           variant: 'error',
           action: <Button color="primary" size="small">Dismiss</Button>,
-          autoHideDuration: 6000,
+          autoHideDuration: 3000,
         });
 
         // Resetting history location state
@@ -42,22 +44,26 @@ class Login extends React.Component {
         delete state.disconnectionDueTo;
         this.props.history.replace({ ...this.props.history.location, state });
       }
+    // If state.disconnectionDueTo undefined, don't need to take action.
     } catch (error) {}
   }
 
 
   render() {
     return (
-      <Grid container>
-        <Grid item xs={1} sm={2} md={3} lg={4}></Grid>
-        <Grid item xs={10} sm={8} md={6} lg={4}>
-          <Form
-            classes={this.props.classes}
-            history={this.props.history}
-          />
+      <React.Fragment>
+        <div className="background"></div>
+        <Grid container>
+          <Grid item xs={1} sm={2} md={3} lg={4}></Grid>
+          <Grid item xs={10} sm={8} md={6} lg={4}>
+            <Form
+              classes={this.props.classes}
+              history={this.props.history}
+            />
+          </Grid>
+          <Grid item xs={1} sm={2} md={3} lg={4}></Grid>
         </Grid>
-        <Grid item xs={1} sm={2} md={3} lg={4}></Grid>
-      </Grid>
+      </React.Fragment>
     );
   }
 }

@@ -24,6 +24,10 @@ class Form extends Component {
     }
   }
 
+
+  /*
+  * Logs user into the chat or displays a message upon error
+  */
   async connect() {
     axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
       username: this.state.username
@@ -50,6 +54,7 @@ class Form extends Component {
       [name]: event.target.value,
     });
   };
+
 
   render() {
     return (

@@ -3,30 +3,18 @@ import React from "react";
 import './connected-users.scss';
 
 class ConnectedUsers extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      users: []
-    }
-  }
-
   render() {
     if (this.props.users) {
       return (
-        <div className="connected-users">
-          {this.renderUsers()}
-        </div>
+        <div className="connected-users">{
+          this.props.users.map((data, index) => {
+            return <User user={data} key={data.username} ></User>
+          })
+        }</div>
       );
     } else {
       return <div></div>
     }
-  }
-
-  renderUsers(user) {
-    return this.props.users.map((data, index) => {
-      return <User user={data} key={data.id} ></User>
-    });
   }
 }
 

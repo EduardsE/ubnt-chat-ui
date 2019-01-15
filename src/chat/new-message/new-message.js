@@ -26,14 +26,19 @@ class NewMessage extends React.Component {
     }
   }
 
-
+  /*
+  * Sends message if it's not empty
+  */
   sendMessage() {
     axios.post(`${process.env.REACT_APP_API_URL}/chat/message`, {
       message: this.state.message
     }).then(data => {
       this.setState({ message: '' });
     }).catch(err => {
-      this.props.enqueueSnackbar(err.response.data, { variant: 'error'});
+      this.props.enqueueSnackbar(err.response.data, {
+        variant: 'error',
+        autoHideDuration: 1000,
+      });
     });
   }
 

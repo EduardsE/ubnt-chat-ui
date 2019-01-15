@@ -1,5 +1,4 @@
 import { withStyles } from '@material-ui/core/styles';
-import axios from 'axios';
 import Moment from 'react-moment';
 import React from 'react';
 

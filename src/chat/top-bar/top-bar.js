@@ -9,12 +9,7 @@ import './top-bar.scss';
 
 class TopBar extends React.Component {
   async disconnect() {
-    try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/auth/logout`);
-    } catch (httpError) {
-      console.log(httpError);
-    }
-
+    await axios.post(`${process.env.REACT_APP_API_URL}/auth/logout`);
     Socket.close();
     this.props.history.push('/')
   }

@@ -1,10 +1,12 @@
-import { withStyles } from '@material-ui/core/styles';
+import { compose } from 'recompose'
+import { withSnackbar } from 'notistack'
 import axios from 'axios';
 import React, { Component } from 'react';
+
 import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   rightIcon: {
@@ -23,15 +25,13 @@ class Form extends Component {
   }
 
   async connect() {
-    try {
-      axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
-        username: this.state.username
-      }).then(data => {
-        this.props.history.push('/chat')
-      });
-    } catch (httpError) {
-      console.log(httpError);
-    }
+    axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
+      username: this.state.username
+    }).then(data => {
+      this.props.history.push('/chat')
+    }).catch(err => {
+      this.props.enqueueSnackbar(err.response.data, { variant: 'error'});
+    });
   }
 
 
@@ -71,4 +71,7 @@ class Form extends Component {
   }
 }
 
-export default withStyles(styles)(Form)
+export default compose(
+  withStyles(styles),
+  withSnackbar
+)(Form)

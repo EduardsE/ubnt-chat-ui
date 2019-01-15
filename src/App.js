@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
-import blue from '@material-ui/core/colors/blue';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import blue from '@material-ui/core/colors/blue';
 
 import './App.css';
-import Login from './login/login';
 import Chat from './chat/chat';
+import Login from './login/login';
 
 const theme = createMuiTheme({
   palette: {
@@ -26,10 +26,10 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <Router>
-          <div>
+          <Fragment>
             <Route exact path="/" component={Login} />
             <Route path="/chat" component={Chat} />
-          </div>
+          </Fragment>
         </Router>
       </MuiThemeProvider>
     )

@@ -7,9 +7,6 @@ class Message extends React.Component {
     const message = this.props.message;
     const user = this.props.user;
 
-    console.log(user);
-    console.log(message);
-
     return (
       <div
         className={

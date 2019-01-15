@@ -3,7 +3,9 @@ import openSocket from 'socket.io-client';
 let socket;
 
 function connect(cb) {
-  socket = openSocket(process.env.REACT_APP_SOCKET_URL);
+  socket = openSocket(process.env.REACT_APP_SOCKET_URL, {
+    transports: ['websocket', 'polling']
+  });
 
   socket.on('new-message', (data) => {
     cb({...data, event: 'new-message'});

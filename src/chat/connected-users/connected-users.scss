@@ -50,3 +50,10 @@
     top: -1px;
   }
 }
+
+
+@media (max-width: 599px) {
+  .connected-users {
+    border-radius: 0;
+  }
+}

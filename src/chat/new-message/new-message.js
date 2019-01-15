@@ -35,10 +35,17 @@ class NewMessage extends React.Component {
     }).then(data => {
       this.setState({ message: '' });
     }).catch(err => {
-      this.props.enqueueSnackbar(err.response.data, {
-        variant: 'error',
-        autoHideDuration: 1000,
-      });
+      if (err.response) {
+        this.props.enqueueSnackbar(err.response.data, {
+          variant: 'error',
+          autoHideDuration: 1000,
+        });
+      } else {
+        this.props.enqueueSnackbar('Server unavailable.', {
+          variant: 'error',
+          autoHideDuration: 3000,
+        });
+      }
     });
   }
 

@@ -74,7 +74,9 @@ class ChatEvents extends React.Component {
     this.setState({ messages });
 
     // Scroll chat to bottom after events
-    this.chatEventsScrollerRef.scrollIntoView({ block: "end" });
+    if (this.chatEventsScrollerRef) {
+      this.chatEventsScrollerRef.scrollIntoView({ block: "end" });
+    }
   }
 
 

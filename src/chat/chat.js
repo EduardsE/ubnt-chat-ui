@@ -1,3 +1,5 @@
+import { compose } from 'recompose'
+import { withSnackbar } from 'notistack'
 import axios from 'axios';
 import React from "react";
 
@@ -39,6 +41,13 @@ class Chat extends React.Component {
         user: data.data.self,
         users: data.data.users
       });
+    }).catch(err => {
+      if (err.response) {
+        this.props.enqueueSnackbar(err.response.data.error, { variant: 'error' });
+      } else {
+        this.props.enqueueSnackbar('Server unavailable', { variant: 'error' });
+      }
+      this.props.history.push('/')
     });
   }
 
@@ -105,5 +114,6 @@ class Chat extends React.Component {
   }
 }
 
-export default Chat
-
+export default compose(
+  withSnackbar
+)(Chat)

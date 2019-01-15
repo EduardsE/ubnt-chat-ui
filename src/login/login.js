@@ -26,7 +26,7 @@ class Login extends React.Component {
   showSnackbarOnDisconnect() {
     try {
       if (this.props.history.location.state.disconnectionDueTo) {
-        let message = 'Disconnected due to inactivity';
+        let message = 'Disconnected by the server due to inactivity.';
         if (this.props.history.location.state.disconnectionDueTo === 'no-auth') {
           message = 'Accessing without authentication is not allowed';
         }

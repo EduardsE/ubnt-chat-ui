@@ -1,10 +1,12 @@
+import { compose } from 'recompose'
+import { withSnackbar } from 'notistack'
+import axios from 'axios';
 import React from "react";
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
 
 import './new-message.scss'
 
@@ -25,16 +27,14 @@ class NewMessage extends React.Component {
   }
 
 
-  async sendMessage() {
-    try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/chat/message`, {
-        message: this.state.message
-      });
-
+  sendMessage() {
+    axios.post(`${process.env.REACT_APP_API_URL}/chat/message`, {
+      message: this.state.message
+    }).then(data => {
       this.setState({ message: '' });
-    } catch (httpError) {
-      console.log(httpError);
-    }
+    }).catch(err => {
+      this.props.enqueueSnackbar(err.response.data, { variant: 'error'});
+    });
   }
 
 
@@ -84,4 +84,7 @@ class NewMessage extends React.Component {
   }
 }
 
-export default withStyles(styles)(NewMessage)
+export default compose(
+  withStyles(styles),
+  withSnackbar
+)(NewMessage)

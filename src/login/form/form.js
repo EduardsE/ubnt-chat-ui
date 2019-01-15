@@ -30,7 +30,11 @@ class Form extends Component {
     }).then(data => {
       this.props.history.push('/chat')
     }).catch(err => {
-      this.props.enqueueSnackbar(err.response.data, { variant: 'error'});
+      if (err.response) {
+        this.props.enqueueSnackbar(err.response.data, { variant: 'error' });
+      } else {
+        this.props.enqueueSnackbar('Server unavailable', { variant: 'error' });
+      }
     });
   }
 

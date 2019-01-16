@@ -90,7 +90,7 @@ class Chat extends React.Component {
   /*
   * Adds or removes online users in user list depending on received event.
   */
-  async disconnect() {
+  disconnect() {
     axios.post(
       `${process.env.REACT_APP_API_URL}/auth/logout`
     ).then(() => {

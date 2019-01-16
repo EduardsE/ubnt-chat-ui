@@ -28,7 +28,7 @@ class Form extends Component {
   /*
   * Logs user into the chat or displays a message upon error
   */
-  async connect() {
+  connect = () => {
     axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
       username: this.state.username
     }).then(data => {
@@ -43,7 +43,7 @@ class Form extends Component {
   }
 
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.connect();
   }
@@ -58,7 +58,7 @@ class Form extends Component {
 
   render() {
     return (
-      <form noValidate autoComplete="off" onSubmit={this.handleSubmit.bind(this)}>
+      <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
         <TextField
           id="username"
           label="Username"
@@ -70,7 +70,7 @@ class Form extends Component {
         <Button
           variant="contained"
           color="primary"
-          onClick={this.connect.bind(this)}
+          onClick={this.connect}
         >
           Connect
           <Icon className={this.classes.rightIcon}>send</Icon>

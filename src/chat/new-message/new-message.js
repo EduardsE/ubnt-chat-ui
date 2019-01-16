@@ -29,7 +29,7 @@ class NewMessage extends React.Component {
   /*
   * Sends message if it's not empty
   */
-  sendMessage() {
+  sendMessage = () => {
     axios.post(`${process.env.REACT_APP_API_URL}/chat/message`, {
       message: this.state.message
     }).then(data => {
@@ -57,7 +57,7 @@ class NewMessage extends React.Component {
   };
 
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.sendMessage();
   }
@@ -65,7 +65,7 @@ class NewMessage extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
+      <form onSubmit={this.handleSubmit}>
         <div className="new-message-container">
           <TextField
             id="standard-full-width"
@@ -83,7 +83,7 @@ class NewMessage extends React.Component {
             variant="contained"
             color="primary"
             className="send-button"
-            onClick={() => this.sendMessage()}
+            onClick={this.sendMessage}
             size="small"
             // type="submit"
           >
